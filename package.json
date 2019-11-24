@@ -1,6 +1,6 @@
 {
   "name": "@strdr4605/react-native-rename",
-  "version": "2.5.0-rc.2",
+  "version": "2.5.0-rc.4",
   "description": "Rename react-native app with just one command",
   "main": "lib/index.js",
   "scripts": {
@@ -12,6 +12,9 @@
     "react-native-rename": "babel-node src/index.js",
     "precommit": "lint-staged"
   },
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
