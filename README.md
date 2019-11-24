@@ -3,6 +3,8 @@
 Rename react-native app with just one command
 
 **NOTE:** This package is a fork of [react-native-rename](https://github.com/junedomingo/react-native-rename) with several improvements.
+- [Validate bundleID to match requirements for Android](https://github.com/junedomingo/react-native-rename/pull/93)
+- [Change package name for other java files](https://github.com/junedomingo/react-native-rename/issues/95)
 
 ![react-native-rename](https://cloud.githubusercontent.com/assets/5106887/24444940/cbcb0a58-149a-11e7-9714-2c7bf5254b0d.gif)
 
@@ -12,7 +14,7 @@ Rename react-native app with just one command
 
 ## Installation
 ```
-npm install react-native-rename -g
+npm install @strdr4605/react-native-rename -g
 ```
 
 Switch to new branch first
@@ -24,21 +26,23 @@ git checkout -b rename-app
 
 ## Usage
 ```
-react-native-rename <newName>
+react-native-rename "<newName>"
+# or
+npx @strdr4605/react-native-rename "<newName>"
 ```
 
 > With custom Bundle Identifier (Android only. For iOS, please use Xcode)
 ```
-react-native-rename <newName> -b <bundleIdentifier>
+react-native-rename "<newName>" -b <bundleIdentifier>
 ```
 
 ## Example
 ```
-react-native-rename "Travel App"
+npx @strdr4605/react-native-rename "Travel App"
 ```
 > With custom Bundle Identifier
 ```
-react-native-rename "Travel App" -b io.github.strdr4605.travelapp
+npx @strdr4605/react-native-rename "Travel App" -b io.github.strdr4605.travelapp
 ```
 
 <a href="https://www.buymeacoffee.com/strdr4605"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;"  target="_blank"></a>
