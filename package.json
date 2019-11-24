@@ -1,6 +1,6 @@
 {
   "name": "@strdr4605/react-native-rename",
-  "version": "2.5.0",
+  "version": "2.5.0-rc.2",
   "description": "Rename react-native app with just one command",
   "main": "lib/index.js",
   "scripts": {
@@ -11,6 +11,9 @@
     "lint": "eslint '**/*.{js,jsx}'",
     "react-native-rename": "babel-node src/index.js",
     "precommit": "lint-staged"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "lint-staged": {
     "**/*.js": [
@@ -35,7 +38,7 @@
   "author": "Dragoș Străinu <str.dr4605@gmail.com>",
   "license": "MIT",
   "bin": {
-    "@strdr4605/react-native-rename": "lib/index.js"
+    "react-native-rename": "lib/index.js"
   },
   "bugs": {
     "url": "https://github.com/strdr4605/react-native-rename/issues"
