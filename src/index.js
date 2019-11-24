@@ -98,7 +98,9 @@ readFile(path.join(__dirname, 'android/app/src/main/res/values/strings.xml'))
             );
           }
           if (!validBundleID.test(bundleID)) {
-            return console.log('Invalid Bundle Identifier. It must have at least two segments (one or more dots). Each segment must start with a letter. All characters must be alphanumeric or an underscore [a-zA-Z0-9_]')
+            return console.log(
+              'Invalid Bundle Identifier. It must have at least two segments (one or more dots). Each segment must start with a letter. All characters must be alphanumeric or an underscore [a-zA-Z0-9_]'
+            );
           }
         }
 
@@ -226,33 +228,51 @@ readFile(path.join(__dirname, 'android/app/src/main/res/values/strings.xml'))
             let filePathsCount = 0;
             const { currentBundleID, newBundleID, newBundlePath, javaFileBase, currentJavaPath, newJavaPath } = params;
 
-            bundleIdentifiers(
-              currentAppName,
-              newName,
-              projectName,
-              currentBundleID,
-              newBundleID,
-              newBundlePath
-            ).map(file => {
-              filePathsCount += file.paths.length - 1;
-              let itemsProcessed = 0;
+            bundleIdentifiers(currentAppName, newName, projectName, currentBundleID, newBundleID, newBundlePath).map(
+              file => {
+                filePathsCount += file.paths.length - 1;
+                let itemsProcessed = 0;
 
-              file.paths.map((filePath, index) => {
-                const newPaths = [];
-                if (fs.existsSync(path.join(__dirname, filePath))) {
-                  newPaths.push(path.join(__dirname, filePath));
+                file.paths.map((filePath, index) => {
+                  const newPaths = [];
+                  if (fs.existsSync(path.join(__dirname, filePath))) {
+                    newPaths.push(path.join(__dirname, filePath));
 
-                  setTimeout(() => {
-                    itemsProcessed += index;
-                    replaceContent(file.regex, file.replacement, newPaths);
-                    if (itemsProcessed === filePathsCount) {
-                      const oldBundleNameDir = path.join(__dirname, javaFileBase, currentBundleID);
-                      resolve({ oldBundleNameDir, shouldDelete: currentJavaPath !== newJavaPath });
-                    }
-                  }, 200 * index);
-                }
+                    setTimeout(() => {
+                      itemsProcessed += index;
+                      replaceContent(file.regex, file.replacement, newPaths);
+                      if (itemsProcessed === filePathsCount) {
+                        const oldBundleNameDir = path.join(__dirname, javaFileBase, currentBundleID);
+                        resolve({ oldBundleNameDir, shouldDelete: currentJavaPath !== newJavaPath });
+                      }
+                    }, 200 * index);
+                  }
+                });
+              }
+            );
+
+            // * Next section finds all java files and replace package name
+            // ! Maybe not the best approach
+            // TODO: Find another solution
+            const newAndroidPath = path.join(__dirname, newBundlePath);
+            fs.readdir(newAndroidPath, function(err, files) {
+              //handling error
+              if (err) {
+                return console.log('Unable to scan directory: ' + err);
+              }
+              const filePaths = files.map(file => `${newAndroidPath}/${file}`);
+              replace({
+                regex: currentBundleID,
+                replacement: newBundleID,
+                paths: filePaths,
+                ...replaceOptions,
               });
+
+              for (const filePath of filePaths) {
+                console.log(`${filePath.replace(__dirname, '')} ${colors.green('MODIFIED')}`);
+              }
             });
+            // * End of section for replacing package name in all java files
           });
 
         const rename = () => {
