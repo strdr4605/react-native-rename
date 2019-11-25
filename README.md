@@ -3,7 +3,7 @@
 Rename react-native app with just one command
 
 :warning::warning::warning:
-**NOTE:** This package is a fork of [react-native-rename](https://github.com/junedomingo/react-native-rename) with several improvements.
+**NOTE:** This package is a fork of [react-native-rename@2.4.1](https://github.com/junedomingo/react-native-rename/tree/99aed0cf788d7e95c481e733de414cb2be76fa64) with several improvements.
 - [Validate bundleID to match requirements for Android](https://github.com/junedomingo/react-native-rename/pull/93)
 - [Change package name for other java files](https://github.com/junedomingo/react-native-rename/issues/95)
 
